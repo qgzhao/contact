@@ -244,11 +244,11 @@
 </TABLE>
 <p align="center">
     总共${paged.totalSize}行 当前显示${paged.firstRow}-${paged.lastRow}行
+    共${paged.totalPages}页 当前第${paged.pageIndex}页
     <a href="${pageContext.request.requestURL}?classId=${classId}&sex=${sex}&name=${name}&pageIndex=1">首页</a>
     <a href="${pageContext.request.requestURL}?classId=${classId}&sex=${sex}&name=${name}&pageIndex=${paged.previousPage}">上一页</a>
     <a href="${pageContext.request.requestURL}?classId=${classId}&sex=${sex}&name=${name}&pageIndex=${paged.nextPage}">下一页</a>
     <a href="${pageContext.request.requestURL}?classId=${classId}&sex=${sex}&name=${name}&pageIndex=${paged.totalPages}">末页</a>
-
 </p>
 <script>
     function deleteContact(id, stuid) {
