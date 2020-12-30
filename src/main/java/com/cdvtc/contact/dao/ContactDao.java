@@ -1,9 +1,6 @@
 package com.cdvtc.contact.dao;
 
-import com.cdvtc.contact.model.Admin;
-import com.cdvtc.contact.model.ClassInfo;
-import com.cdvtc.contact.model.Contact;
-import com.cdvtc.contact.model.PagedData;
+import com.cdvtc.contact.model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -99,4 +96,11 @@ public interface ContactDao {
      * @return
      */
     PagedData queryPagedContacts(String filter, String sex, int classId, int pageIndex, int pageSize);
+
+
+    /**
+     * 统计通讯录（根据班级、性别统计人数）
+     * @return
+     */
+    List<StatItem> statContacts();
 }

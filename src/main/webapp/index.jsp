@@ -157,7 +157,7 @@
         关键字：<input name="name" placeholder="请输入姓名、学号、电话号码等关键字" value="<%=name%>"> <input type="submit" value="查询">
     </form>
 </div>
-<p align="right"><a href="export">导出Excel</a></p>
+<p align="right"><a href="stat.jsp">统计图</a> <a href="export">导出Excel</a></p>
 <TABLE id=customers>
     <THEAD>
     <TR>

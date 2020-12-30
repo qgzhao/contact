@@ -1,10 +1,7 @@
 package com.cdvtc.contact.dao;
 
 import com.cdvtc.contact.db.DBConnection;
-import com.cdvtc.contact.model.Admin;
-import com.cdvtc.contact.model.ClassInfo;
-import com.cdvtc.contact.model.Contact;
-import com.cdvtc.contact.model.PagedData;
+import com.cdvtc.contact.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -455,6 +452,34 @@ public class ContactDaoImpl implements ContactDao {
         return page;
     }
 
+    @Override
+    public List<StatItem> statContacts() {
+        List<StatItem> statItems = new ArrayList<StatItem>();
+        try {
+            Connection con = db.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select c.name as cname, sex, count(*) as count from contact left join classinfo as c on contact.classId = c.id group by c.name, sex");
+            while(rs.next()) {
+                String sex = rs.getString("sex");
+                if(sex == null || sex.length() == 0) { //sex为空不加入统计
+                    continue;
+                } else{
+                    StatItem statItem = new StatItem();
+                    //翻译性别名称
+                    statItem.setSex("m".equalsIgnoreCase(sex)? "男": "女");
+
+                    statItem.setClassName(rs.getString("cname"));
+                    statItem.setCount(rs.getInt("count"));
+
+                    statItems.add(statItem);
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statItems;
+    }
+
     public static void main(String[] args) {
 //        ContactDao dao = new ContactDaoImpl();
 //        List<Contact> list = dao.getAllContacts();
@@ -471,6 +496,7 @@ public class ContactDaoImpl implements ContactDao {
         ContactDaoImpl dao = new ContactDaoImpl();
 //        System.out.println(dao.getClassInfo(1).toString());
 //        System.out.println(dao.getAllClassInfos());
-        System.out.println(dao.queryPagedContacts("", "", 0, 2, 12));
+//        System.out.println(dao.queryPagedContacts("", "", 0, 2, 12));
+        System.out.println(dao.statContacts());
     }
 }
